@@ -1,9 +1,15 @@
-const {Client} = require('discord.js')
+require('dotenv').config()
 
-const client = new Client({});
+const {Client, GatewayIntentBits, Events} = require('discord.js')
 
-client.on('ready', ()=>{
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds
+    ]
+});
+
+client.on(Events.ClientReady, ()=>{
     console.log('Logged in');
 })
 
-client.login();
+client.login(process.env.TOKEN);
