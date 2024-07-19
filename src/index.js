@@ -4,6 +4,7 @@ require('dotenv').config()
 const {Client, GatewayIntentBits, Events, Rest, Collection} = require('discord.js')
 
 const {clientReadyHandler} = require('./events/clientReady')
+const {interactionCreateHandler} = require('./events/interactionCreate')
 
 const pingCommand = require('./commands/ping')
 
@@ -16,6 +17,8 @@ const client = new Client({
 client.commands = new Collection();
 client.commands.set(pingCommand.data.name, pingCommand)
 
-client.on(Events.ClientReady, clientReadyHandler)
+client.once(Events.ClientReady, clientReadyHandler)
+
+client.on(Events.InteractionCreate, interactionCreateHandler)
 
 client.login(process.env.TOKEN);
